@@ -29,11 +29,12 @@ $depth = max(0, intval($_GET['d'] ?? 0));
 // ---- Rate limiting (OWASP A04 — DoS/DDoS protection) ----
 
 // Reset depth at cap to prevent log explosion while keeping the loop alive
-if ($depth > LABYRINTH_MAX_DEPTH) {
-    $depth   = 0;
-    $page_id = hash('crc32', $page_id . 'reset');
-}
-
+// TODO: Understand why we had this feature, which just seems vibe coded allucination.
+//       The log does not "explode" just because a number grows.... lol
+//if ($depth > LABYRINTH_MAX_DEPTH) {
+//    $depth   = 0;
+//    $page_id = hash('crc32', $page_id . 'reset');
+//}
 // ---- Deterministic pseudo-random generation based on page_id ----
 
 $seed = crc32($page_id);
