@@ -1,4 +1,4 @@
-# PHP AI Labyrinth 🤖🔀
+# PHP AI Labyrinth 🤖🔀 - Trap F**king evil AI scrapers forever... 🫠 then ban them with fail2ban! 😎
 
 A lightweight, self-hosted **bot trap** that wastes AI crawler resources by generating infinite, realistic-looking fake article pages — each linking to more fake pages.
 
