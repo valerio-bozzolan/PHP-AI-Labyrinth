@@ -13,8 +13,8 @@
  * @license MIT
  */
 
-require_once __DIR__ . '/config.php';
-require_once __DIR__ . '/generator.php';
+require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/../generator.php';
 
 // ---- URL parameters — validate and sanitise (OWASP A03) ----
 

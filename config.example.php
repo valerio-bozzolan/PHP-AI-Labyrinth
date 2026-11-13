@@ -22,8 +22,10 @@ define('LABYRINTH_PARAGRAPHS_MAX', 8);
 define('LABYRINTH_SITE_NAME', 'Fachredaktion');
 
 // Base URL path of this script (used for self-referencing links)
-// Example: '/research/articles.php' or '/trap/labyrinth.php'
-define('LABYRINTH_BASE_PATH', '/research/articles.php');
+// Example: '/research/' or '/trap/'.
+// The 'www' directory must be served by this path.
+// For example with a symbolic link from the www directory to this path.
+define('LABYRINTH_BASE_PATH', '/research/');
 
 // Artificial response delay (tarpit) in milliseconds — slows crawlers down at
 // almost no cost to you. The actual delay is picked deterministically per page
