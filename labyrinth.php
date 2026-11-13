@@ -28,14 +28,6 @@ $depth = max(0, intval($_GET['d'] ?? 0));
 
 // ---- Rate limiting (OWASP A04 — DoS/DDoS protection) ----
 
-// Skipped in gateway mode: bot-monitor.php has already rate-limited this
-// request before including us, so checking again would double-count it.
-if (!defined('LABYRINTH_GATEWAY') && !labyrinth_check_rate_limit($_SERVER['REMOTE_ADDR'] ?? '')) {
-    http_response_code(429);
-    header('Retry-After: 60');
-    exit;
-}
-
 // Reset depth at cap to prevent log explosion while keeping the loop alive
 if ($depth > LABYRINTH_MAX_DEPTH) {
     $depth   = 0;
@@ -97,26 +89,6 @@ header('X-Robots-Tag: noindex, nofollow');
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
 header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'");
-
-// ---- Optional visit logging for bot monitoring (OWASP A09) ----
-
-// Skipped in gateway mode: bot-monitor.php has already logged this request
-// (with the original forbidden path), so logging again would waste the
-// per-IP log budget on a duplicate entry.
-if (LABYRINTH_LOG_VISITS && !defined('LABYRINTH_GATEWAY')) {
-    $client_ip = filter_var($_SERVER['REMOTE_ADDR'] ?? '', FILTER_VALIDATE_IP) ?: 'invalid';
-    // Per-IP log rate limit prevents log flooding from aggressive crawlers
-    if (labyrinth_check_rate_limit('log_' . $client_ip, LABYRINTH_LOG_MAX_PER_WINDOW, 60)) {
-        error_log(sprintf(
-            'AI Labyrinth: IP=%s UA=%s page=%s depth=%d',
-            $client_ip,
-            labyrinth_sanitize_log($_SERVER['HTTP_USER_AGENT'] ?? 'unknown'),
-            labyrinth_sanitize_log($page_id),
-            $depth
-        ));
-    }
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="de">

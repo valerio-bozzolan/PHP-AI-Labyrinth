@@ -210,7 +210,6 @@ Only useful if you need WordPress's rewrite engine to handle clean URLs.
 | **WAF / Cloudflare Firewall** | Your own WAF rules block trap traffic before it reaches PHP | Add the trap path to WAF bypass rules (`uri contains /research/ → skip`) |
 | **Rate limiting** | Your own rate limiting blocks aggressive bots before they go deep | Exclude the trap path from external rate limiting — you *want* bots to send many requests (the built-in limiter still caps genuine DoS) |
 | **PHP `open_basedir`** | Restrictive `open_basedir` settings can block `require_once` for `config.php` | Place all three files in the same directory, or adjust `open_basedir` |
-| **Shared hosting** | No access to `error_log()` output or logs not visible | Set `LABYRINTH_LOG_VISITS` to `false`, or write to a custom log file |
 
 ---
 
