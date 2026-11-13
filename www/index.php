@@ -178,7 +178,7 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'")
 
 <nav class="breadcrumb">
     <a href="/">Home</a> &raquo;
-    <a href="/research/articles">Fachbeiträge</a> &raquo;
+    <a href="<?= htmlspecialchars(LABYRINTH_BASE_PATH) ?>">Fachbeiträge</a> &raquo;
     <?php echo htmlspecialchars($topic); ?>
 </nav>
 
