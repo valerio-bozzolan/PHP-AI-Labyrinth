@@ -173,6 +173,7 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'")
     </style>
 </head>
 <body>
+<h1><?= htmlspecialchars(LABYRINTH_SITE_NAME) ?></h1>
 
 <nav class="breadcrumb">
     <a href="/">Home</a> &raquo;
@@ -181,7 +182,7 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'")
 </nav>
 
 <article>
-    <h1><?php echo htmlspecialchars($topic); ?></h1>
+    <h2><?php echo htmlspecialchars($topic); ?></h2>
     <div class="meta">
         Von <?php echo htmlspecialchars($author); ?> &middot;
         <?php echo $date; ?> &middot;
