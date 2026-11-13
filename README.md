@@ -157,38 +157,11 @@ Arrays for topics, paragraphs, authors, subheadings and month names are in the s
 
 Setting `LABYRINTH_DELAY_MIN_MS` / `LABYRINTH_DELAY_MAX_MS` (e.g. `250` / `1500`) makes every labyrinth page sleep for a deterministic, per-page amount of time before responding. It costs the crawler wall-clock time and costs you almost nothing — **but** each sleeping request occupies a PHP-FPM worker. Only enable it if your worker pool has headroom, and rely on the built-in rate limiter (values are hard-capped at 5000 ms as a safety net). Default: off.
 
----
-
 ## Monitoring
 
-When `LABYRINTH_LOG_VISITS` is `true`, each visit is written to your PHP error log:
-
-```
-AI Labyrinth: IP=203.0.113.42 UA=SomeScraper/1.0 page=3b4c1d2e depth=7
-BOT_MONITOR: IP=203.0.113.42 UA=GPTBot/1.1 path=/trap/
-```
-
-`AI Labyrinth:` lines are regular labyrinth page views; `BOT_MONITOR:` lines are proven robots.txt violations caught by the gateway. Parse them with any log aggregator (grep, GoAccess, Loki, …) to see which bots are in the trap.
-
-### Count trap hits per IP (bash)
-
-```bash
-grep 'AI Labyrinth' /var/log/php/error.log | awk -F'IP=' '{print $2}' | cut -d' ' -f1 | sort | uniq -c | sort -rn | head
-```
-
-`BOT_MONITOR` IPs are ideal input for `fail2ban` or firewall blocklists — every single hit is a provable violation.
+Just inspect your webserver logs to look at visitors of your configured honeypot path, like `/research/`.
 
 ---
-
-## Privacy & IP Address Storage
-
-> ⚠️ **Note for operators subject to GDPR / EU privacy law**
-
-When `LABYRINTH_LOG_VISITS` is enabled, **IP addresses are stored in the PHP error log**. This serves the sole purpose of **temporarily defending against attacks** (bots, scrapers, automated crawlers) and is technically necessary to:
-
-- Identify which IPs are actively exploiting your site
-- Detect repeat offenders and block them (e.g. via `fail2ban`, firewall rules)
-- Verify the effectiveness of the measure
 
 ## License
 
