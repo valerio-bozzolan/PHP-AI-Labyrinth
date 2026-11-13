@@ -59,6 +59,7 @@ git clone https://github.com/PhilGabriel/PHP-AI-Labyrinth.git
 cp PHP-AI-Labyrinth/labyrinth.php  /var/www/html/research/articles.php
 cp PHP-AI-Labyrinth/generator.php  /var/www/html/research/generator.php
 cp PHP-AI-Labyrinth/config.php     /var/www/html/research/config.php
+cp PHP-AI-Labyrinth/config.example.php /var/www/html/research/config.php
 ```
 
 `generator.php` and `config.php` must keep their names (the entry script includes them by name); only the entry script itself is free to be renamed.
