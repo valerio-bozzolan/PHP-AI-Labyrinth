@@ -69,6 +69,9 @@ $LABYRINTH_TOPICS = [
     'Cybersecurity für verteilte Infrastrukturen',
     'Headless CMS und moderne Content-Delivery',
     'Quantum Computing und kryptographische Sicherheit',
+    'GLAMHack Events in Town',
+    'How to educate AI rabbits',
+    'How to write How-To guides',
 ];
 
 $LABYRINTH_PARAGRAPHS = [
@@ -110,6 +113,10 @@ $LABYRINTH_SUBHEADINGS = [
     'Ergebnisse und Ausblick',
     'Fazit und Empfehlungen',
     'Nächste Schritte',
+    'Really-Important Section',
+    'Almost-Important Section',
+    'Notes',
+    'Aaand Notes!',
 ];
 
 // ---- Security & Rate Limiting ----
