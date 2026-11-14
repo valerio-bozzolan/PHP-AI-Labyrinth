@@ -89,7 +89,7 @@ header('X-Robots-Tag: noindex, nofollow');
 // Security headers (OWASP A05)
 header('X-Content-Type-Options: nosniff');
 header('X-Frame-Options: DENY');
-header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'");
+header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline'");
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -171,9 +171,31 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'")
             font-size: 0.75rem;
             color: #bbb;
         }
+
+        #page-content {
+            opacity: 0.05;
+            transition: opacity 1.2s ease;
+        }
+        #page-content.is-revealed { opacity: 1; }
+        #eye-toggle {
+            position: fixed;
+            right: 1.25rem;
+            bottom: 1.25rem;
+            width: 3rem;
+            height: 3rem;
+            padding: 0;
+            font-size: 1.5rem;
+            line-height: 1;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
+<div id="page-content">
 <h1><?= htmlspecialchars(LABYRINTH_SITE_NAME) ?></h1>
 
 <nav class="breadcrumb">
@@ -245,6 +267,25 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'")
 <footer>
     &copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(LABYRINTH_SITE_NAME); ?> &middot; Alle Rechte vorbehalten
 </footer>
+</div>
+
+<button id="eye-toggle" type="button" aria-pressed="false">🙈</button>
+
+<script>
+(function () {
+    var content = document.getElementById('page-content');
+    var toggle  = document.getElementById('eye-toggle');
+    if (!content || !toggle) {
+        return;
+    }
+
+    toggle.addEventListener('click', function () {
+        var revealed = content.classList.toggle('is-revealed');
+        toggle.textContent = revealed ? '👁️' : '🙈';
+        toggle.setAttribute('aria-pressed', revealed ? 'true' : 'false');
+    });
+})();
+</script>
 
 <?php if (isset($LABYRINTH_CONFIGS->FOOTER_EXTRA_HTML)): ?>
 	<?= $LABYRINTH_CONFIGS->FOOTER_EXTRA_HTML ?>
