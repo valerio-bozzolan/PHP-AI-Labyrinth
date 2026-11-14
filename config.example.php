@@ -7,6 +7,8 @@
  * to override defaults without modifying the core file.
  */
 
+// TODO: Move all configs under the object $LABYRINTH_CONFIGS.
+
 // Maximum crawl depth before resetting to 0 (prevents log explosion)
 define('LABYRINTH_MAX_DEPTH', 100);
 
@@ -128,3 +130,11 @@ define('LABYRINTH_RATE_LIMIT_WINDOW',  60);  // window size in seconds
 
 // Max length for the page_id URL parameter (prevents oversized input attacks)
 define('LABYRINTH_PAGE_ID_MAX_LENGTH', 64);
+
+//
+// EXTRA FOOTER
+//
+// De-comment to add extra stuff in the footer,
+// useful to add a Matomo tracking code or something extra:
+//
+// $LABYRINTH_CONFIGS->FOOTER_EXTRA_HTML = '<div>Something!</div>';

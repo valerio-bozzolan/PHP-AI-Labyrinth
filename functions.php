@@ -17,6 +17,10 @@
  * @license MIT
  */
 
+// Initialize empty global config.
+// TODO: Move all configs under this object.
+$LABYRINTH_CONFIGS = new stdClass;
+
 // ---- Word pools ----------------------------------------------------------------
 //
 // Subjects are nominative singular with article; predicates are pairs of

@@ -13,8 +13,8 @@
  * @license MIT
  */
 
-require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/../functions.php';
+require_once __DIR__ . '/../config.php';
 
 // ---- URL parameters — validate and sanitise (OWASP A03) ----
 
@@ -246,5 +246,8 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'")
     &copy; <?php echo date('Y'); ?> <?php echo htmlspecialchars(LABYRINTH_SITE_NAME); ?> &middot; Alle Rechte vorbehalten
 </footer>
 
+<?php if (isset($LABYRINTH_CONFIGS->FOOTER_EXTRA_HTML)): ?>
+	<?= $LABYRINTH_CONFIGS->FOOTER_EXTRA_HTML ?>
+<?php endif ?>
 </body>
 </html>
