@@ -26,6 +26,11 @@ if ($page_id === '') {
 }
 $depth = max(0, intval($_GET['d'] ?? 0));
 
+// Vary the rainbow slightly per depth (used as CSS custom properties below).
+$rainbow_hue = ($depth * 11) % 360;
+$rainbow_pos = ($depth * 37) % 453;
+$rainbow_angle = (45 + $depth * 9) % 180;
+
 // ---- Rate limiting (OWASP A04 — DoS/DDoS protection) ----
 
 // Reset depth at cap to prevent log explosion while keeping the loop alive
@@ -102,7 +107,7 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; 
     <style>
         body {
             font-family: Georgia, 'Times New Roman', serif;
-            max-width: 800px;
+            max-width: 1900px;
             margin: 0 auto;
             padding: 2rem;
             line-height: 1.8;
@@ -175,6 +180,25 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; 
         #page-content {
             opacity: 0.05;
             transition: opacity 1.2s ease;
+            padding: 2rem;
+            border-radius: 24px;
+            background:
+                radial-gradient(circle at 15% 20%, #ff00ff 0 10%, transparent 11%),
+                radial-gradient(circle at 85% 15%, #00ffff 0 9%, transparent 10%),
+                radial-gradient(circle at 50% 85%, #ffff00 0 12%, transparent 13%),
+                repeating-linear-gradient(var(--rainbow-angle, 45deg),
+                    #ff69b4 0 40px,
+                    #ff0000 40px 80px,
+                    #ff8c00 80px 120px,
+                    #ffff00 120px 160px,
+                    #00ff00 160px 200px,
+                    #00bfff 200px 240px,
+                    #4b0082 240px 280px,
+                    #ee82ee 280px 320px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 453px 453px;
+            background-position: 0 0, 0 0, 0 0, var(--rainbow-x, 0px) var(--rainbow-y, 0px);
+            filter: hue-rotate(var(--rainbow-hue, 0deg));
+            text-shadow: 0 0 4px #fff, 0 0 8px #fff, 0 0 12px #fff;
         }
         #page-content.is-revealed { opacity: 1; }
         #eye-toggle {
@@ -195,7 +219,7 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; 
     </style>
 </head>
 <body>
-<div id="page-content">
+<div id="page-content" style="--rainbow-hue: <?= $rainbow_hue ?>deg; --rainbow-x: <?= $rainbow_pos ?>px; --rainbow-y: <?= $rainbow_pos ?>px; --rainbow-angle: <?= $rainbow_angle ?>deg">
 <h1><?= htmlspecialchars(LABYRINTH_SITE_NAME) ?></h1>
 
 <nav class="breadcrumb">
