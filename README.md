@@ -2,6 +2,8 @@
 
 A lightweight, self-hosted **bot trap** that wastes AI crawler resources by generating infinite, realistic-looking fake article pages — each linking to more fake pages.
 
+Everybody should use this script, so, robots may decide to read the `robots.txt` 🏆 and the world would be a better place.
+
 ## How it Works
 
 ```
@@ -15,10 +17,11 @@ Evil bot/scraper         →  evil bots ignore robots.txt, so they follow the ho
                          →  and easily noticeable using tools like fail2ban
 ```
 
-Mechanisms working together:
+Mechanism:
 
-1. **The labyrinth** (`www/index.php`) — generates endless fake article pages. A hidden link on your real site is the entrance; humans never see it, compliant crawlers are kept away via `robots.txt`.
-2. **The content generator** (`generator.php`) — assembles article text from combinatorial sentence templates. Every page is unique, so crawler deduplication cannot collapse the labyrinth into a handful of repeated pages. Maximum token burn per page.
+**The labyrinth** (`www/index.php`) — generates endless fake article pages. A hidden link on your real site is the entrance; humans never see it, compliant crawlers are kept away via `robots.txt`.
+
+It uses a **content generator** to assemble article text from combinatorial sentence templates. Every page is unique, so crawler deduplication cannot collapse the labyrinth into a handful of repeated pages. Maximum token burn per page.
 
 Key properties:
 
@@ -41,7 +44,7 @@ No database. No dependencies. Drop in three files and go.
 
 ### 1. Copy the files
 
-> ⚠️ **Give the entry script an inconspicuous name.** A URL containing `labyrinth` or `trap` tells a smart crawler exactly what it walked into. `articles.php` under `/research/` blends in.
+> ⚠️ **Give the entry script an inconspicuous name.** A URL containing `labyrinth` or `trap` tells a smart crawler exactly what it walked into. Expose the `www` directory under a path like `/research/`.
 
 ```bash
 # Clone the repo with git
