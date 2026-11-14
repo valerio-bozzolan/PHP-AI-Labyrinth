@@ -128,6 +128,3 @@ define('LABYRINTH_RATE_LIMIT_WINDOW',  60);  // window size in seconds
 
 // Max length for the page_id URL parameter (prevents oversized input attacks)
 define('LABYRINTH_PAGE_ID_MAX_LENGTH', 64);
-
-// Max log entries written per IP per log window (prevents log flooding)
-define('LABYRINTH_LOG_MAX_PER_WINDOW', 5);

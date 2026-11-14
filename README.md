@@ -107,14 +107,14 @@ Alias /research/ /path/to/PHP-AI-Labyrinth/www
 
 Static bait text has a weakness: crawlers deduplicate. If every labyrinth page is a permutation of the same dozen paragraphs, a scraper's dedup layer collapses the whole labyrinth into ~12 paragraphs' worth of tokens — trap defused.
 
-`generator.php` fixes this. It assembles grammatically correct German sentences from independent word pools (subjects × predicates × adverbs × conditions × sentence templates), yielding **billions of distinct paragraphs**. Each page mixes ~80 % generated text with an occasional hand-written paragraph and bullet list, plus varied article titles and deterministic publication dates.
+The file `functions.php` has generator utilities to assemble grammatically correct sentences from independent word pools (subjects × predicates × adverbs × conditions × sentence templates), yielding **billions of distinct paragraphs**. Each page mixes ~80 % generated text with an occasional hand-written paragraph and bullet list, plus varied article titles and deterministic publication dates.
 
 Everything runs off a single `mt_srand()` seed derived from the page ID:
 
 - same page ID → byte-identical page, every time (cache-friendly, no database)
 - different page ID → genuinely different text (dedup-proof, maximum token burn)
 
-**Customizing / translating:** edit the word pools at the top of `generator.php` (subjects, predicates, adverbs, conditions, intros, list items) and the pools in `config.php` (topics, authors, subheadings, month names). Keep the predicate structure `[verb, object]` intact — it is what keeps both main-clause and subordinate-clause word order grammatical.
+**Customizing / translating:** edit the word pools in `functions.php` (subjects, predicates, adverbs, conditions, intros, list items) and the pools in `config.php` (topics, authors, subheadings, month names). Keep the predicate structure `[verb, object]` intact — it is what keeps both main-clause and subordinate-clause word order grammatical.
 
 ---
 
@@ -152,9 +152,8 @@ All settings live in `config.php`:
 | `LABYRINTH_RATE_LIMIT_MAX` | `60` | Max requests per IP per window |
 | `LABYRINTH_RATE_LIMIT_WINDOW` | `60` | Rate-limit window in seconds |
 | `LABYRINTH_PAGE_ID_MAX_LENGTH` | `64` | Max length of the `?p=` parameter |
-| `LABYRINTH_LOG_MAX_PER_WINDOW` | `5` | Max log lines per IP per minute |
 
-Arrays for topics, paragraphs, authors, subheadings and month names are in the same file; the sentence-generator word pools live in `generator.php`. All can be freely extended.
+Other stuff is hardcoded here and there, to be moved in future configurations.
 
 ### Tarpit delay
 
