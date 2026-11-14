@@ -279,10 +279,20 @@ header("Content-Security-Policy: default-src 'none'; style-src 'unsafe-inline'; 
         return;
     }
 
-    toggle.addEventListener('click', function () {
-        var revealed = content.classList.toggle('is-revealed');
+    var open = localStorage.getItem('labyrinth-eye-open') === '1';
+
+    function setEye(revealed) {
+        content.classList.toggle('is-revealed', revealed);
         toggle.textContent = revealed ? '👁️' : '🙈';
         toggle.setAttribute('aria-pressed', revealed ? 'true' : 'false');
+    }
+
+    setEye(open);
+
+    toggle.addEventListener('click', function () {
+        open = !open;
+        localStorage.setItem('labyrinth-eye-open', open ? '1' : '0');
+        setEye(open);
     });
 })();
 </script>
